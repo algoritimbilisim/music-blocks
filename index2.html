@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .row { 
+            display: flex;
+        }
+
+        .block {
+            outline: 1px solid #000;
+            width: 200px;
+            height: 50px;
+            position: relative;
+            display: flex;
+        }
+
+        .sub-block {
+            outline: 1px solid #000;
+            width: 25%;
+            height: 100%; 
+            position: relative;
+        }
+
+        .overlay {
+            background-color: rgba(0,0,0,0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            resize: horizontal;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="block">
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+        </div>
+        <div class="block">
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+            <div class="sub-block" onmouseup="addOverlay(this)" ondrop="drop(event, this)" ondragover="allowDrop(event)"></div>
+        </div>
+        <!-- Add more blocks here... -->
+    </div>
+    <script>
+        function addOverlay(subBlock, width = '400%'){    
+            let parentBlock = subBlock.parentNode.parentNode;
+            let subBlocks = Array.from(parentBlock.querySelectorAll(".sub-block"));
+            let index = subBlocks.indexOf(subBlock);
+            if (
+                subBlocks[index].classList.contains("filled") || 
+                subBlocks[index - 1]?.classList.contains("filled") || 
+                subBlocks[index - 2]?.classList.contains("filled") || 
+                subBlocks[index - 3]?.classList.contains("filled")) {
+                    alert("Çakışma");
+                    return;
+            }
+            
+            if (
+                !subBlocks[index].firstChild && 
+                !subBlocks[index + 1]?.firstChild && 
+                !subBlocks[index + 2]?.firstChild && 
+                !subBlocks[index + 3]?.firstChild) {
+                let overlay = document.createElement('div');
+                overlay.className = 'overlay';
+                overlay.id = 'overlay-' + Date.now(); // unique ID for each overlay
+                overlay.style.width = width;
+                overlay.style.height = '100%';
+                overlay.style.zIndex = '100';
+                overlay.draggable = true;
+                overlay.ondragstart = function(event) {
+                    event.dataTransfer.setData('index', index); // dummy data
+                    event.dataTransfer.setData('width', this.style.width); // store the width
+                    this.parentElement.classList.add('dragging');
+                }
+
+                overlay.ondragend = function(event) {
+                    let originSubBlock = document.querySelectorAll(".sub-block")[event.dataTransfer.getData('index')];
+                    originSubBlock.classList.remove('dragging');
+                }
+
+                // add resize observer
+                let ro = new ResizeObserver(entries => {
+                    for (let entry of entries) {
+                        const widthPercent = entry.contentRect.width / subBlock.offsetWidth * 100;
+                        overlay.style.width = `${Math.ceil(widthPercent / 100) * 100}%`;
+                    }
+                });
+                ro.observe(overlay);
+                subBlock.appendChild(overlay);
+                overlay.style.display = 'block';
+
+                // mark the sub-blocks as filled
+                for (let i = index; i < index + 4 && i < subBlocks.length; i++) {
+                    subBlocks[i].classList.add('filled');
+                }
+            } else {
+                alert("İşlem başarısız. Yeterli boş alan yok.");
+            }
+        }
+
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drop(event, target) {
+            event.preventDefault();
+            let originSubBlock = document.querySelectorAll(".sub-block")[event.dataTransfer.getData('index')];
+            let width = event.dataTransfer.getData('width'); // retrieve the width
+            // remove the filled class from the original sub-blocks
+            let parentBlock = originSubBlock.parentNode.parentNode;
+            let subBlocks = Array.from(parentBlock.querySelectorAll(".sub-block"));
+            let index = subBlocks.indexOf(originSubBlock);
+            for (let i = index; i < index + 4 && i < subBlocks.length; i++) {
+                subBlocks[i].classList.remove('filled');
+            }
+            originSubBlock.removeChild(originSubBlock.firstChild);
+            addOverlay(target, width); // call with the width
+        }
+
+
+    </script>
+</body>
+</html>
