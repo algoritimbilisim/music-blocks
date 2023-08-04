@@ -1,109 +1,108 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      #instrument {
-        overflow: auto;
-        min-width: 100%;
-        margin-top: 1rem;
-        padding-top: 2px;
-      }
+	<head>
+		<style>
+			#instrument {
+				overflow: auto;
+				min-width: 100%;
+				margin-top: 1rem;
+				padding-top: 2px;
+			}
 
-      .row {
-        display: flex;
-        width: 100%;
-        position: relative;
-      }
+			.row {
+				display: flex;
+				width: 100%;
+				position: relative;
+			}
 
-      .title {
-        width: 3rem;
-        font-size: 1rem;
-        line-height: 3rem;
-        text-align: right;
-        padding: 0 0.5rem 0 0;
-        display: inline-block;
-        flex-shrink: 0;
-      }
+			.title {
+				width: 3rem;
+				font-size: 1rem;
+				line-height: 3rem;
+				text-align: right;
+				padding: 0 0.5rem 0 0;
+				display: inline-block;
+				flex-shrink: 0;
+			}
 
-      .block {
-        outline: 2px solid #000;
-        width: 200px;
-        height: 50px;
-        position: relative;
-        display: flex;
-        flex-shrink: 0;
-      }
+			.block {
+				outline: 2px solid #000;
+				width: 200px;
+				height: 50px;
+				position: relative;
+				display: flex;
+				flex-shrink: 0;
+			}
 
-      .note:nth-of-type(even) {
-        background-color: rgb(125, 206, 206);
-      }
+			.note:nth-of-type(even) {
+				background-color: rgb(125, 206, 206);
+			}
 
-      .sub-block {
-        outline: 1px solid #000;
-        width: 25%;
-        height: 100%;
-        position: relative;
-      }
+			.sub-block {
+				outline: 1px solid #000;
+				width: 25%;
+				height: 100%;
+				position: relative;
+			}
 
-      .overlay {
-        background-color: rgba(0, 0, 0, 0.5);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: none;
-        resize: horizontal;
-        overflow: auto;
-      }
+			.overlay {
+				background-color: rgba(0, 0, 0, 0.5);
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				display: none;
+				resize: horizontal;
+				overflow: auto;
+			}
 
-      #pointer {
-        position: absolute;
-        left: 50px;
-      }
-    </style>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  </head>
-  <body>
-    <div id="app">
-      <div class="row">
-        <select v-model="oscillatorType">
-          <option
-            v-for="oscillatorType of oscillatorTypes"
-            v-text="oscillatorType"
-          ></option>
-        </select>
-        <button @click="play()">Oynat</button>
-      </div>
-      <div class="row">
-        <span id="pointer">V</span>
-      </div>
-      <div id="instrument">
-        <div class="row note" v-for="component in allComposition">
-          <span class="title" v-text="component.note"></span>
-          <div v-for="i in 10" class="block">
-            <div
-              v-for="j in 4"
-              class="sub-block"
-              @click="addOverlay(component.note, i,j)"
-              @drop="drop(event, this)"
-              @dragover="allowDrop(event)"
-            >
-              <div
-                :id="`overlay_${component.noteCode}_${i}_${j}`"
-                v-if="checkFilled(component.note, i+'_'+j)"
-                class="overlay"
-                style="height: 100%; z-index: 100; display: block"
-                draggable="true"
-              ></div>
-            </div>
-          </div>
-          <!-- Add more blocks here... -->
-        </div>
-      </div>
-    </div>
-    <script></script>
-    <script src="enstruman2.js"></script>
-    <script src="sound.js"></script>
-  </body>
+			#pointer {
+				position: absolute;
+				left: 50px;
+			}
+		</style>
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div class="row">
+				<select v-model="oscillatorType">
+					<option v-for="oscillatorType of oscillatorTypes" v-text="oscillatorType"></option>
+				</select>
+				<button @click="play()">Oynat</button>
+				<button @click="exportation()">Dışa Aktar</button>
+				<input type="file" id="fileInput" accept=".json" />
+			</div>
+			<div class="row">
+				<span id="pointer">V</span>
+			</div>
+			<div id="instrument">
+				<div class="row note" v-for="component in allComposition">
+					<span class="title" v-text="component.note"></span>
+					<div v-for="i in 10" class="block">
+						<div
+							v-for="j in 4"
+							class="sub-block"
+							@click="addOverlay(component.note, i,j)"
+							@drop="drop(event, this)"
+							@dragover="allowDrop(event)"
+						>
+							<div
+								:id="`overlay_${component.noteCode}_${i}_${j}`"
+								v-if="checkFilled(component.note, i+'_'+j)"
+								class="overlay"
+								style="height: 100%; z-index: 100; display: block"
+								draggable="true"
+							></div>
+						</div>
+					</div>
+					<!-- Add more blocks here... -->
+				</div>
+			</div>
+		</div>
+		<script></script>
+		<script src="enstruman2.js"></script>
+		<script src="sound.js"></script>
+	</body>
 </html>
