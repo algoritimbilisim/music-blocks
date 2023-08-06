@@ -3,7 +3,8 @@ const { createApp } = Vue;
 createApp({
 	data() {
 		return {
-			usableNotes: ['A#4', 'A4', 'B4', 'C5', 'D#5', 'D5', 'E4', 'E5', 'G#4', 'G4'],
+			usableNotes: ['A3', 'A4', 'B4', 'C5', 'Db4', 'D4', 'E4', 'F#4', 'G4', 'A5'],
+			//usableNotes: ['A#4', 'A4', 'B4', 'C5', 'D#5', 'D5', 'E4', 'E5', 'G#4', 'G4'],
 			allComposition: [],
 			oscillatorTypes: ['sine', 'square', 'triangle', 'sawtooth'],
 			oscillatorType: 'square',
@@ -194,7 +195,7 @@ createApp({
 				subBlocks[index + i].classList.remove('filled');
 			}
 			originSubBlock.removeChild(originSubBlock.firstChild);
-			addOverlay(target, width); // call with the width
+			addOverlay(note, i, j, width); // call with the width
 		},
 		exportation() {
 			let jsonString = JSON.stringify(this.allComposition); // Veriyi JSON formatına çevir

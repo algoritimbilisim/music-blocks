@@ -85,8 +85,8 @@
 							v-for="j in 4"
 							class="sub-block"
 							@click="addOverlay(component.note, i,j)"
-							@drop="drop(event, this)"
-							@dragover="allowDrop(event)"
+							@drop="drop($event, this)"
+							@dragover="allowDrop($event)"
 						>
 							<div
 								:id="`overlay_${component.noteCode}_${i}_${j}`"
