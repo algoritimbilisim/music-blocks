@@ -45,6 +45,17 @@ createApp({
 				ro.observe(overlay);
 			});
 		},
+		removeOverlay(note, i, j) {
+			let index = `${i}_${j}`;
+			let component = this.allComposition.find((e) => e.note == note);
+			let temp = { ...component.filled };
+
+			delete temp[index];
+			console.log(temp);
+
+			component.filled = { ...temp };
+			//component.filled = {};
+		},
 		checkFilled(note, index) {
 			let component = this.allComposition.find((e) => e.note == note);
 

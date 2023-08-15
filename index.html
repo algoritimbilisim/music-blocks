@@ -85,6 +85,7 @@
 							v-for="j in 4"
 							class="sub-block"
 							@click="addOverlay(component.note, i,j)"
+							@dblclick="removeOverlay(component.note, i, j)"
 							@drop="drop($event, this)"
 							@dragover="allowDrop($event)"
 						>

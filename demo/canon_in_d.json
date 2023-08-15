@@ -1,0 +1,79 @@
+[
+  {
+    "note": "D5",
+    "noteCode": "D5",
+    "filled": {
+      "1_1": {"note": "D5", "start": 0, "duration": 1},
+      "4_2": {"note": "D5", "start": 6, "duration": 1},
+      "9_1": {"note": "D5", "start": 16, "duration": 1},
+      "12_2": {"note": "D5", "start": 22, "duration": 1}
+    }
+  },
+  {
+    "note": "A4",
+    "noteCode": "A4",
+    "filled": {
+      "1_3": {"note": "A4", "start": 1, "duration": 1},
+      "4_4": {"note": "A4", "start": 7, "duration": 1},
+      "9_3": {"note": "A4", "start": 17, "duration": 1},
+      "12_4": {"note": "A4", "start": 23, "duration": 1}
+    }
+  },
+  {
+    "note": "B4",
+    "noteCode": "B4",
+    "filled": {
+      "2_1": {"note": "B4", "start": 2, "duration": 1},
+      "5_2": {"note": "B4", "start": 8, "duration": 1},
+      "10_1": {"note": "B4", "start": 18, "duration": 1},
+      "13_2": {"note": "B4", "start": 24, "duration": 1}
+    }
+  },
+  {
+    "note": "F#4",
+    "noteCode": "F#4",
+    "filled": {
+      "2_3": {"note": "F#4", "start": 3, "duration": 1},
+      "5_4": {"note": "F#4", "start": 9, "duration": 1},
+      "10_3": {"note": "F#4", "start": 19, "duration": 1},
+      "13_4": {"note": "F#4", "start": 25, "duration": 1}
+    }
+  },
+  {
+    "note": "G4",
+    "noteCode": "G4",
+    "filled": {
+      "3_1": {"note": "G4", "start": 4, "duration": 1},
+      "6_2": {"note": "G4", "start": 10, "duration": 1},
+      "11_1": {"note": "G4", "start": 20, "duration": 1},
+      "14_2": {"note": "G4", "start": 26, "duration": 1}
+    }
+  },
+  {
+    "note": "D4",
+    "noteCode": "D4",
+    "filled": {
+      "3_3": {"note": "D4", "start": 5, "duration": 1},
+      "6_4": {"note": "D4", "start": 11, "duration": 1},
+      "11_3": {"note": "D4", "start": 21, "duration": 1},
+      "14_4": {"note": "D4", "start": 27, "duration": 1}
+    }
+  },
+  {
+    "note": "G4",
+    "noteCode": "G4",
+    "filled": {
+      "7_1": {"note": "G4", "start": 12, "duration": 1},
+      "15_1": {"note": "G4", "start": 28, "duration": 1}
+    }
+  },
+  {
+    "note": "A4",
+    "noteCode": "A4",
+    "filled": {
+      "7_3": {"note": "A4", "start": 13, "duration": 1},
+      "15_3": {"note": "A4", "start": 29, "duration": 1}
+    }
+  }
+]
+
